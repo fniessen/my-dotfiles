@@ -1,0 +1,6 @@
+[include]
+    path = .gitconfig_leuven
+
+[user]
+    email = fni@pirilampo.be
+    name = Fabrice Niessen

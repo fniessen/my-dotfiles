@@ -48,7 +48,7 @@
    ((font-info "Hack")
     (set-frame-font "Hack-8" nil t))
    ((font-info "DejaVu Sans Mono")
-    (set-frame-font "DejaVu Sans Mono-11" nil t))
+    (set-frame-font "DejaVu Sans Mono-14" nil t))
    ((font-info "Ubuntu Mono")
     (set-frame-font "Ubuntu Mono-14" nil t))))
 

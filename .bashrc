@@ -81,7 +81,7 @@ if [ -x /usr/bin/dircolors ]; then
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    alias egrep='grep -E --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -120,7 +120,8 @@ fi
 
 # FNI ################################################################
 
-# Source all files beginning with 'rc-bash' or 'rc-common' in the ~/bin directory.
+# Source custom settings files (beginning with 'rc-bash' or 'rc-common') from
+# ~/bin.
 for file in ~/bin/rc-bash-specific-settings-* ~/bin/rc-common-settings-*; do
     if [ -f "$file" ]; then
         printf "Sourcing %s...\n" "$file"

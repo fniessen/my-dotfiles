@@ -2,5 +2,9 @@
     path = .gitconfig_leuven
 
 [user]
-    email = fni@pirilampo.be
     name = Fabrice Niessen
+    email = fni@pirilampo.be
+
+# Include common configuration for client projects.
+[includeIf "gitdir:~/1-Clients/"]
+    path = ~/1-Clients/.gitconfig

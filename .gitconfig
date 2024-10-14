@@ -5,6 +5,9 @@
     name = Fabrice Niessen
     email = fni@pirilampo.be
 
+[http]
+    sslVerify = false
+
 # Include common configuration for client projects.
 [includeIf "gitdir:~/1-Clients/"]
     path = ~/1-Clients/.gitconfig

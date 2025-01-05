@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs configuration file
 
-;; Copyright (C) 2012-2024 Fabrice Niessen
+;; Copyright (C) 2012-2024 Fabrice Niessen. All rights reserved.
 
 ;;; Commentary:
 

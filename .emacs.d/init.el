@@ -1,33 +1,38 @@
 ;;; init.el --- Emacs configuration file
 
-;; Copyright (C) 2012-2024 Fabrice Niessen. All rights reserved.
+;; Copyright (C) 2012-2025 Fabrice Niessen. All rights reserved.
 
 ;;; Commentary:
+
+;; This is the main initialization file for Emacs.
 
 ;;; Code:
 
 ;; Start recording the load time.
 (defconst init--load-start-time (current-time)
-  "Value of `current-time' before loading the init.el file.")
+  "Time when the init.el file started loading.")
 
 (message "[Loading `%s'...]" load-file-name)
 
 
+;; Enable debug on error for easier troubleshooting.
 (setq debug-on-error t)
 
 
 ;; Initialize the package manager.
-(ignore-errors
-  (package-initialize))
+(condition-case nil
+    (package-initialize)
+  (error (message "Failed to initialize package manager")))
 
 ;;* Load path ----------------------------------------------------------------
 
-;; Directory containing additional Emacs Lisp packages (from the Internet).
-(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+;; Add local site-lisp directory (containing additional Emacs Lisp packages from
+;; the Internet) to load path.
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/"))
 
 ;;* Must have ----------------------------------------------------------------
 
-;; Disable any input method to use pure English input.
+;; Disable input method to ensure pure English input (and prevent lag on WSL2).
 (setq default-input-method nil)         ; STOP ENCOUNTERING LAGGY ISSUES ON WSL2.
 
 ;; (require 'emacs-load-time)
@@ -40,8 +45,9 @@
 ;; - `boxquote' (side and corners)
 ;; - `calfw'
 
-;; Set a font for (all) the frame(s) if the display is graphic.
+;; Check if the display is graphic (GUI mode).
 (when (display-graphic-p)
+  ;; Try to set a font for (all) the frame(s) based on availability.
   (cond
    ((font-info "Consolas")
     (set-frame-font "Consolas-10" nil t))
@@ -115,41 +121,38 @@
 ;;         other-annoying-package))
 
 ;; Add the '~/lisp/' directory to the load path if it exists.
-(let ((emacs-leuven-path "~/lisp/"))
-  (when (file-exists-p emacs-leuven-path)
-    (add-to-list 'load-path (expand-file-name emacs-leuven-path))))
+(let ((custom-lisp-dir (expand-file-name "~/lisp/")))
+  ;; Check if the directory exists before adding to load-path.
+  (when (file-directory-p custom-lisp-dir)
+    (add-to-list 'load-path custom-lisp-dir)))
 
 ;; (let ((file-name-handler-alist nil))    ; Easy little known step to speed up
 ;;                                         ; Emacs start up time.
 ;; FIXME: When activated, breaks windows-path interpretation of 'es' results...
 
-;; Load several init files.
-(dolist (init-file
-     '(
-       "~/.emacs.d/init_emacsboost.el"
-       "~/.emacs.d/init_local.el"
-       "~/.emacs.d/init_local_org.el"
-       "~/.emacs.d/init_archibus.el"
-       ))
-  (let ((file-exists (file-exists-p init-file)))
-    (if file-exists
+;; Load several init files
+(let ((init-files '("~/.emacs.d/init_emacsboost.el"
+                    "~/.emacs.d/init_local.el"
+                    "~/.emacs.d/init_local_org.el"
+                    "~/.emacs.d/init_archibus.el")))
+  (dolist (init-file init-files)
+    (if (file-exists-p init-file)
         (load-file init-file)
-      (progn
-        (message (concat "[" init-file " NOT found]"))
-        (sit-for 2)))))
+      (message "[%s NOT found]" init-file)
+      (sit-for 2))))
 
 ;; Load several libraries.
-(dolist (library
-         '(
-           "emacs-leuven"
-           "emacs-leuven-org"
-           "emacs-leuven-bbdb"
-           "emacs-leuven-ess"
-           "emacs-leuven-ledger"
-           ))
-  (when (locate-library library)
-    (message "[Loading library: %s]" library)
-    (require (intern library))))
+(let ((libraries '("emacs-leuven"
+                   "emacs-leuven-org"
+                   "emacs-leuven-bbdb"
+                   "emacs-leuven-ess"
+                   "emacs-leuven-ledger")))
+  (dolist (library libraries)
+    (if (locate-library library)
+        (progn
+          (message "[Loading library: %s]" library)
+          (require (intern library)))
+      (message "[Library not found: %s]" library))))
 
 
 ;; (defun lvn-helm-projectile-or-find-files ()
@@ -179,7 +182,9 @@
 
 
 ;; Compute and display the load time.
-(let ((load-time (float-time (time-subtract (current-time) init--load-start-time))))
+(let ((load-time
+       (float-time (time-subtract (current-time) init--load-start-time))))
+  ;; Display the startup time in the minibuffer.
   (message "[Loaded `%s' in %.2f s]" load-file-name load-time))
 
 ;;; init.el ends here

@@ -1,6 +1,7 @@
+#!/usr/bin/env bash
+
+# Navigate to the directories.
 alias c='cd ~/1-Clients'
 alias o='cd ~/2-Output'
 alias t='cd ~/3-Teams'
 alias a='cd ~/4-Administration'
-
-alias rus='run-until-success'

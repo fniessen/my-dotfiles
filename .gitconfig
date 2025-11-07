@@ -8,6 +8,9 @@
 [http]
     sslVerify = false
 
+[core]
+    autocrlf = input
+
 # Include common configuration for client projects.
 [includeIf "gitdir:~/1-Clients/"]
     path = ~/1-Clients/.gitconfig

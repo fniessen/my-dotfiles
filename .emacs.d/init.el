@@ -131,7 +131,7 @@
 ;; FIXME: When activated, breaks windows-path interpretation of 'es' results...
 
 ;; Load several init files
-(let ((init-files '("~/.emacs.d/init_emacsboost.el"
+(let ((init-files '(;; "~/.emacs.d/init_emacsboost.el"
                     "~/.emacs.d/init_local.el"
                     "~/.emacs.d/init_local_org.el"
                     "~/.emacs.d/init_archibus.el")))
@@ -144,6 +144,7 @@
 ;; Load several libraries.
 (let ((libraries '("emacs-leuven"
                    "emacs-leuven-org"
+                   "emacs-leuven-ai"
                    "emacs-leuven-bbdb"
                    "emacs-leuven-ess"
                    "emacs-leuven-ledger")))

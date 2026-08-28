@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs configuration file
 
-;; Copyright (C) 2012-2025 Fabrice Niessen. All rights reserved.
+;; Copyright (C) 2012-2026 Fabrice Niessen. All rights reserved.
 
 ;;; Commentary:
 
@@ -147,6 +147,7 @@
                    "emacs-leuven-ai"
                    "emacs-leuven-bbdb"
                    "emacs-leuven-ess"
+                   "emacs-leuven-gptel"
                    "emacs-leuven-ledger")))
   (dolist (library libraries)
     (if (locate-library library)
@@ -155,32 +156,7 @@
           (require (intern library)))
       (message "[Library not found: %s]" library))))
 
-
-;; (defun lvn-helm-projectile-or-find-files ()
-;;   "Switch project with Helm Projectile or find files with Helm.
-;; If called with a prefix argument (C-u), it will invoke Helm to find files.
-;; Otherwise, it will switch between projects using Helm Projectile."
-;;   (interactive)
-;;   (if current-prefix-arg
-;;       (helm-find-files)
-;;     (helm-projectile-switch-project)))
-;;
-;; (defun lvn-helm-projectile-or-find-files ()
-;;   "Switch project with Helm Projectile or find files with Helm.
-;; If called with a prefix argument (C-u), it will invoke Helm to find files.
-;; Otherwise, it will switch between projects using Helm Projectile."
-;;   (interactive)
-;;   (if current-prefix-arg
-;;       (helm :sources (helm-build-in-buffer-source "Find files"
-;;                        :data (list (cons "Open" (directory-files-recursively default-directory '("\\.el$" "\\.org$" "\\.txt$" "\\.md$")))))
-;;             :prompt "Find files: "
-;;             :buffer "*Helm Find Files*")
-;;     (helm-projectile-switch-project)))
-
-
 (global-set-key (kbd "<f3>") 'helm-for-files)
-
-
 
 ;; Compute and display the load time.
 (let ((load-time

@@ -1,4 +1,4 @@
-;;; init.el --- Emacs configuration file
+;;; init.el --- Emacs configuration file  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012-2026 Fabrice Niessen. All rights reserved.
 
@@ -144,10 +144,10 @@
 ;; Load several libraries.
 (let ((libraries '("emacs-leuven"
                    "emacs-leuven-org"
-                   "emacs-leuven-ai"
+                   ;; "emacs-leuven-ai"
                    "emacs-leuven-bbdb"
                    "emacs-leuven-ess"
-                   "emacs-leuven-gptel"
+                   "emacs-boost-gptel"
                    "emacs-leuven-ledger")))
   (dolist (library libraries)
     (if (locate-library library)

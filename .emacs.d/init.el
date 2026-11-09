@@ -21,7 +21,8 @@
 
 ;; Initialize the package manager.
 (condition-case nil
-    (package-initialize)
+    (unless package--initialized
+      (package-initialize))
   (error (message "Failed to initialize package manager")))
 
 ;;* Load path ----------------------------------------------------------------
